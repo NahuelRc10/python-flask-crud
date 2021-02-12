@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from utils.util import get_password_crypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/adminproyectos'
@@ -44,7 +45,7 @@ def create_usuario():
     apellido = request.json['apellido']
     genero = request.json['genero']
     email = request.json['email']
-    password = request.json['password']
+    password = get_password_crypt(request.json['password'])
     telefono = request.json['telefono']
     id_rol = request.json['id_rol']
     new_usuario = Usuario(None, nombre, apellido, genero, email, password, telefono, id_rol)
